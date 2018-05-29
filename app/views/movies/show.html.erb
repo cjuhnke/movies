@@ -7,6 +7,11 @@
     <h2>
       <%= movie.title %>
     </h2>
+    <% if movie.mpaa != nil && movie.runtime != nil %>
+    <h4>
+      <%= movie.mpaa %>, <%= movie.runtime %> minutes
+    </h4>
+    <% end %>
   </div>
 
 </div>
@@ -31,12 +36,30 @@
     <% director = Director.find_by(id: movie.director_id) %>
     <% if director != nil %>
       <p>
-        Directed by <%= director.name %>
+        Directed by <a href= "/directors/<%= movie.director_id %>"> <%= director.name %> </a>
       </p>
     <% end %>
 
     <p class="lead">
       <strong><%= movie.plot %></strong>
+    </p>
+    <p>
+      <% if movie.director_id != nil && Movie.where(director_id: movie.director_id).count > 1 %>
+      Other movies by this director:
+      <ul>
+        <% for other_movie in Movie.where(director_id: movie.director_id) %>
+          <% if other_movie.title != movie.title %>
+            <li><a href="/movies/<%= other_movie.id %>"><%= other_movie.title %></a></li>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if movie.director_id == nil %>
+          No Director listed in database.
+        <% else %>
+          No other movies by this director currently in database.
+        <% end %>
+      <% end %>
+      </ul>
     </p>
   </div>
 </div>

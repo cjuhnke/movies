@@ -1,0 +1,12 @@
+<% director = Director.find_by(id: params["id"]) %>
+
+<h1>Editing <%= director.name %></h1>
+
+<form action="/directors/<%= director.id %>/update" class='col-sm-5'>
+
+  <p class="form-group">Name: <input class="form-control" value="<%= director.name %>" type="text" name="name" placeholder="Enter a name..."></p>
+  <p class="form-group">Headshot URL:<input class="form-control" value="<%= director.headshot_url %>" type="text" name="headshot_url" placeholder="Enter a url..."></p>
+
+  <button class="btn btn-primary">Update Director</button>
+
+</form>

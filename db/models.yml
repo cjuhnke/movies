@@ -10,6 +10,7 @@ Movie
 
 Director
   name: text
+  headshot_url: text
 
 Review
   rating: integer
